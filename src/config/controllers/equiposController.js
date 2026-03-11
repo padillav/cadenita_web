@@ -1,4 +1,4 @@
-const db = require('../db'); // ✅ sube una carpeta: config/controllers → config/db.js
+const db = require('../db');
 
 // GET /api/equipos
 const getEquipos = async (req, res) => {
@@ -13,29 +13,6 @@ const getEquipos = async (req, res) => {
         res.json(rows);
     } catch (err) {
         res.status(500).json({ error: 'Error al obtener equipos', detalle: err.message });
-    } finally {
-        if (conn) conn.release();
-    }
-};
-
-// GET /api/equipos/:id
-const getEquipoById = async (req, res) => {
-    const { id } = req.params;
-    let conn;
-    try {
-        conn = await db.getConnection();
-        const rows = await conn.query(`
-            SELECT e.id, e.nombre, e.nombre_coach, e.id_categoria, c.nombre AS categoria
-            FROM equipos e
-            JOIN categorias c ON e.id_categoria = c.id
-            WHERE e.id = ?
-        `, [id]);
-        if (rows.length === 0) {
-            return res.status(404).json({ error: 'Equipo no encontrado' });
-        }
-        res.json(rows[0]);
-    } catch (err) {
-        res.status(500).json({ error: 'Error al obtener el equipo', detalle: err.message });
     } finally {
         if (conn) conn.release();
     }
@@ -111,4 +88,4 @@ const deleteEquipo = async (req, res) => {
     }
 };
 
-module.exports = { getEquipos, getEquipoById, createEquipo, updateEquipo, deleteEquipo };
+module.exports = { getEquipos, createEquipo, updateEquipo, deleteEquipo };
