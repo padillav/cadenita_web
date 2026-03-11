@@ -1,0 +1,13 @@
+torneo-api/
+│
+├── src/
+│   ├── config/
+│   │   └── db.js         # Conexión a MariaDB
+│   ├── controllers/      # Lógica(CRUDs)
+│   ├── routes/           # Rutas de la API (Ej: /api/equipos)
+│   ├── middlewares/      # Validaciones (Express-validator)
+│   └── index.js          # Archivo principal del servidor
+│
+├── .env                  # Variables de entorno (Credenciales)
+├── package.json
+└── database.sql          # script SQL
